@@ -2,20 +2,65 @@ import React from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 import * as LucideIcons from 'lucide-react'
 import { PasswordStrengthIndicator } from './PasswordStrengthIndicator'
-import { theme } from '../../theme'
 
 const input = tv({
-  base: 'block w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600',
+  base: [
+    // Base styles using theme variables
+    'block w-full',
+    'shadow-sm',
+    'focus:outline-none focus:ring-2 focus:ring-offset-2',
+    'disabled:opacity-50 disabled:cursor-not-allowed',
+    // Use theme colors
+    'bg-[var(--color-bg-primary)]',
+    'text-[var(--color-text-primary)]',
+    'placeholder:text-[var(--color-text-muted)]',
+    'dark:bg-[var(--color-bg-inverse)]',
+    'dark:text-[var(--color-text-inverse)]',
+    // Use theme border radius
+    'rounded-[var(--radius-theme)]',
+    // Border
+    'border border-[var(--color-border)]',
+  ],
   variants: {
     inputSize: {
-      sm: 'px-2 py-1 text-sm',
-      md: 'px-3 py-2 text-base',
-      lg: 'px-4 py-3 text-lg',
+      sm: [
+        'px-2 py-1 text-sm',
+        'leading-[var(--line-height-tight)]',
+      ].join(' '),
+      md: [
+        'px-3 py-2 text-base',
+        'leading-[var(--line-height-normal)]',
+      ].join(' '),
+      lg: [
+        'px-4 py-3 text-lg',
+        'leading-[var(--line-height-relaxed)]',
+      ].join(' '),
     },
     variant: {
-      default: 'border-gray-300 focus:ring-[var(--color-primary)] dark:focus:ring-[var(--color-primary-hover)]',
-      error: 'border-red-500 focus:ring-red-500 dark:border-red-400 dark:focus:ring-red-400',
-      success: 'border-green-500 focus:ring-green-500 dark:border-green-400 dark:focus:ring-green-400',
+      default: [
+        'border-[var(--color-border)]',
+        'focus:border-[var(--color-primary)]',
+        'focus:ring-[var(--color-primary)]',
+        'dark:border-[var(--color-border)]',
+        'dark:focus:border-[var(--color-primary-hover)]',
+        'dark:focus:ring-[var(--color-primary-hover)]',
+      ].join(' '),
+      error: [
+        'border-[var(--color-error)]',
+        'focus:border-[var(--color-error)]',
+        'focus:ring-[var(--color-error)]',
+        'dark:border-[var(--color-error-light)]',
+        'dark:focus:border-[var(--color-error-light)]',
+        'dark:focus:ring-[var(--color-error-light)]',
+      ].join(' '),
+      success: [
+        'border-[var(--color-success)]',
+        'focus:border-[var(--color-success)]',
+        'focus:ring-[var(--color-success)]',
+        'dark:border-[var(--color-success-light)]',
+        'dark:focus:border-[var(--color-success-light)]',
+        'dark:focus:ring-[var(--color-success-light)]',
+      ].join(' '),
     },
   },
   defaultVariants: {
@@ -48,17 +93,31 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     }
 
     return (
-      <div className="space-y-1">
+      <div 
+        className="space-y-1"
+        style={{ fontFamily: 'var(--font-sans)' }}
+      >
         {shouldShowLabel && (
           <label
             htmlFor={inputId}
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            className="block text-sm font-medium text-[var(--color-text-primary)]"
+            style={{ 
+              fontWeight: 'var(--font-weight-medium)',
+              fontSize: 'var(--text-sm)',
+            }}
           >
             <div className="flex items-center gap-2">
-              {IconComponent && <IconComponent size={16} className="text-gray-500" />}
+              {IconComponent && (
+                <IconComponent 
+                  size={16} 
+                  className="text-[var(--color-text-muted)]" 
+                />
+              )}
               <span>
                 {label || 'Label'}
-                {props.required && <span className="text-red-500 ml-1">*</span>}
+                {props.required && (
+                  <span className="text-[var(--color-error)] ml-1">*</span>
+                )}
               </span>
             </div>
           </label>
@@ -68,7 +127,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           id={inputId}
           className={input({ inputSize, variant, className })}
           style={{
-            borderRadius: theme.cornerRadius,
+            borderRadius: 'var(--radius-theme)',
+            fontSize: 'var(--text-base)',
+            lineHeight: 'var(--line-height-normal)',
             ...style,
           }}
           {...props}

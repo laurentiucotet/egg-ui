@@ -23,9 +23,9 @@ export const PasswordStrengthIndicator: React.FC<PasswordStrengthIndicatorProps>
     if (/[0-9]/.test(password)) score++
     if (/[^A-Za-z0-9]/.test(password)) score++
 
-    if (score <= 2) return { level: 'weak', color: 'bg-red-500', text: 'Weak' }
-    if (score <= 3) return { level: 'medium', color: 'bg-yellow-500', text: 'Medium' }
-    return { level: 'strong', color: 'bg-green-500', text: 'Strong' }
+    if (score <= 2) return { level: 'weak', color: 'var(--color-error)', text: 'Weak' }
+    if (score <= 3) return { level: 'medium', color: 'var(--color-warning)', text: 'Medium' }
+    return { level: 'strong', color: 'var(--color-success)', text: 'Strong' }
   }
 
   const requirements: PasswordRequirement[] = [
@@ -41,23 +41,42 @@ export const PasswordStrengthIndicator: React.FC<PasswordStrengthIndicatorProps>
   if (!password) return null
 
   return (
-    <div className={`space-y-3 ${className}`}>
+    <div 
+      className={`space-y-3 ${className}`}
+      style={{ fontFamily: 'var(--font-sans)' }}
+    >
       {/* Strength Bar */}
       <div className="space-y-1">
         <div className="flex items-center gap-2">
-          <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+          <div 
+            className="flex-1 rounded-full h-2"
+            style={{ 
+              backgroundColor: 'var(--color-neutral-200)',
+              height: '8px',
+              borderRadius: 'var(--radius-full)',
+            }}
+          >
             <div
-              className={`h-2 rounded-full transition-all duration-300 ${strength.color}`}
+              className="h-2 rounded-full transition-all duration-300"
               style={{
                 width: strength.level === 'weak' ? '33%' :
-                       strength.level === 'medium' ? '66%' : '100%'
+                       strength.level === 'medium' ? '66%' : '100%',
+                backgroundColor: strength.color,
+                height: '100%',
+                borderRadius: 'var(--radius-full)',
+                transition: 'var(--transition-base)',
               }}
             ></div>
           </div>
-          <span className={`text-xs font-medium ${
-            strength.level === 'weak' ? 'text-red-600' :
-            strength.level === 'medium' ? 'text-yellow-600' : 'text-green-600'
-          }`}>
+          <span 
+            className="text-xs font-medium"
+            style={{
+              fontSize: 'var(--text-xs)',
+              fontWeight: 'var(--font-weight-medium)',
+              color: strength.level === 'weak' ? 'var(--color-error)' :
+                     strength.level === 'medium' ? 'var(--color-warning)' : 'var(--color-success)',
+            }}
+          >
             {strength.text}
           </span>
         </div>
@@ -65,16 +84,46 @@ export const PasswordStrengthIndicator: React.FC<PasswordStrengthIndicatorProps>
 
       {/* Requirements Checklist */}
       <div className="space-y-1">
-        <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">Password requirements:</p>
+        <p 
+          className="text-xs font-medium"
+          style={{ 
+            fontSize: 'var(--text-xs)',
+            fontWeight: 'var(--font-weight-medium)',
+            color: 'var(--color-text-secondary)',
+          }}
+        >
+          Password requirements:
+        </p>
         <ul className="space-y-1">
           {requirements.map((req, index) => (
-            <li key={index} className="flex items-center gap-2 text-xs">
+            <li 
+              key={index} 
+              className="flex items-center gap-2 text-xs"
+              style={{
+                fontSize: 'var(--text-xs)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'var(--spacing-2)',
+              }}
+            >
               {req.met ? (
-                <Check size={12} className="text-green-500 flex-shrink-0" />
+                <Check 
+                  size={12} 
+                  className="flex-shrink-0" 
+                  style={{ color: 'var(--color-success)', width: '12px', height: '12px' }}
+                />
               ) : (
-                <X size={12} className="text-gray-400 dark:text-gray-500 flex-shrink-0" />
+                <X 
+                  size={12} 
+                  className="flex-shrink-0" 
+                  style={{ color: 'var(--color-text-muted)', width: '12px', height: '12px' }}
+                />
               )}
-              <span className={req.met ? 'text-green-700 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'}>
+              <span 
+                style={{ 
+                  color: req.met ? 'var(--color-success)' : 'var(--color-text-muted)',
+                }}
+              >
                 {req.label}
               </span>
             </li>
