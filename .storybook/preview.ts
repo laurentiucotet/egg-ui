@@ -96,25 +96,10 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
-    locale: {
-      description: 'Internationalization locale',
-      toolbar: {
-        title: 'Locale',
-        icon: 'globe',
-        items: [
-          { value: 'en', title: 'English', right: '🇺🇸' },
-          { value: 'ro', title: 'Română', right: '🇷🇴' },
-          { value: 'fr', title: 'Français', right: '🇫🇷' },
-          { value: 'de', title: 'Deutsch', right: '🇩🇪' },
-        ],
-        dynamicTitle: true,
-      },
-    },
   },
 
   initialGlobals: {
     theme: 'light',
-    locale: 'en',
     spacing: 'loose',
     colorTheme: 'lime',
     fontFamily: 'sans',
