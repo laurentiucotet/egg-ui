@@ -1,4 +1,6 @@
+import React from 'react'
 import { tv } from 'tailwind-variants'
+import { useSidebarMenu } from './SidebarMenu'
 
 const sidebarMenuGroup = tv({
   base: [
@@ -8,7 +10,7 @@ const sidebarMenuGroup = tv({
   ],
   variants: {
     hasTitle: {
-      true: 'border-b border-[var(--color-border)] dark:border-[var(--color-neutral-700)] mb-1',
+      true: 'border-b border-(--color-border) dark:border-(--color-neutral-700) mb-1',
       false: '',
     },
   },
@@ -20,9 +22,9 @@ const sidebarMenuGroup = tv({
 const sidebarMenuGroupTitle = tv({
   base: [
     'text-xs font-semibold uppercase tracking-wider',
-    'text-[var(--color-text-secondary)]',
+    'text-(--color-text-secondary)',
     'px-3 py-1',
-    'dark:text-[var(--color-neutral-400)]',
+    'dark:text-(--color-neutral-400)',
   ],
 })
 
@@ -39,13 +41,16 @@ export const SidebarMenuGroup = ({
   ...props
 }: SidebarMenuGroupProps) => {
   const hasTitle = !!titleProp
+  const { collapsed } = useSidebarMenu()
 
   return (
     <div
       className={sidebarMenuGroup({ className, hasTitle })}
       {...props}
     >
-      {hasTitle && <SidebarMenuGroupTitle>{titleProp}</SidebarMenuGroupTitle>}
+      {hasTitle && !collapsed && (
+        <SidebarMenuGroupTitle>{titleProp}</SidebarMenuGroupTitle>
+      )}
       <div className="flex flex-col gap-0.5">{props.children}</div>
     </div>
   )

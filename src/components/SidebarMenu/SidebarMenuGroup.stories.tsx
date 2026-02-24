@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { SidebarMenuGroup } from './SidebarMenuGroup'
-import { SidebarMenuItem } from './SidebarMenuItem'
+import { SidebarMenuItem } from '../ListItems/SidebarMenuItem'
 import { Users, Folder, FileText, ChevronRight } from 'lucide-react'
 
 const meta = {
