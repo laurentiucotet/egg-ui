@@ -1,13 +1,14 @@
 import React from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 import { Button } from '../Button/Button'
+import { theme } from '../../theme'
 
 const overlay = tv({
   base: 'fixed inset-0 bg-black bg-opacity-50',
 })
 
 const dialog = tv({
-  base: 'bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-xl z-10',
+  base: 'bg-white dark:bg-gray-800 overflow-hidden shadow-xl z-10',
   variants: {
     size: {
       sm: 'max-w-sm',
@@ -52,7 +53,12 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className={overlay()} onClick={onCancel} />
-      <div className={dialog({ size })} role="dialog" aria-modal="true">
+      <div
+        className={dialog({ size })}
+        role="dialog"
+        aria-modal="true"
+        style={{ borderRadius: theme.cornerRadius }}
+      >
         <div className="p-4">
           {header ? (
             header

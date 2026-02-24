@@ -2,9 +2,10 @@ import React from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 import * as LucideIcons from 'lucide-react'
 import { PasswordStrengthIndicator } from './PasswordStrengthIndicator'
+import { theme } from '../../theme'
 
 const input = tv({
-  base: 'block w-full rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600',
+  base: 'block w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600',
   variants: {
     inputSize: {
       sm: 'px-2 py-1 text-sm',
@@ -12,7 +13,7 @@ const input = tv({
       lg: 'px-4 py-3 text-lg',
     },
     variant: {
-      default: 'border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-400',
+      default: 'border-gray-300 focus:ring-[var(--color-primary)] dark:focus:ring-[var(--color-primary-hover)]',
       error: 'border-red-500 focus:ring-red-500 dark:border-red-400 dark:focus:ring-red-400',
       success: 'border-green-500 focus:ring-green-500 dark:border-green-400 dark:focus:ring-green-400',
     },
@@ -31,7 +32,7 @@ export type InputProps = React.InputHTMLAttributes<HTMLInputElement> &
   }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ inputSize, variant, className, label, showLabel, icon, ...props }, ref) => {
+  ({ inputSize, variant, className, label, showLabel, icon, style, ...props }, ref) => {
     const inputId = props.id || `input-${Math.random().toString(36).substr(2, 9)}`
     const shouldShowLabel = showLabel !== false && (label || showLabel === true)
     
@@ -66,6 +67,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           id={inputId}
           className={input({ inputSize, variant, className })}
+          style={{
+            borderRadius: theme.cornerRadius,
+            ...style,
+          }}
           {...props}
           onChange={handleInputChange}
         />
