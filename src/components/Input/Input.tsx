@@ -12,10 +12,10 @@ const input = tv({
     'disabled:opacity-50 disabled:cursor-not-allowed',
     // Use theme colors
     'bg-[var(--color-bg-primary)]',
-    'text-[var(--color-text-primary)]',
-    'placeholder:text-[var(--color-text-muted)]',
+    'text-(--color-text-primary)',
+    'placeholder:text-(--color-text-muted)',
     'dark:bg-[var(--color-bg-inverse)]',
-    'dark:text-[var(--color-text-inverse)]',
+    'dark:text-(--color-text-inverse)',
     // Use theme border radius
     'rounded-[var(--radius-theme)]',
     // Border
@@ -100,7 +100,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {shouldShowLabel && (
           <label
             htmlFor={inputId}
-            className="block text-sm font-medium text-[var(--color-text-primary)]"
+            className="block text-sm font-medium text-(--color-text-primary)"
             style={{ 
               fontWeight: 'var(--font-weight-medium)',
               fontSize: 'var(--text-sm)',
@@ -110,13 +110,13 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               {IconComponent && (
                 <IconComponent 
                   size={16} 
-                  className="text-[var(--color-text-muted)]" 
+                  className="text-(--color-text-muted)" 
                 />
               )}
               <span>
                 {label || 'Label'}
                 {props.required && (
-                  <span className="text-[var(--color-error)] ml-1">*</span>
+                  <span className="text-(--color-error) ml-1">*</span>
                 )}
               </span>
             </div>

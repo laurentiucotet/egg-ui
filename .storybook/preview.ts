@@ -23,7 +23,7 @@ const applyThemeToDocument = (doc: Document, theme: string) => {
       root.style.colorScheme = 'light'
       root.style.backgroundColor = getComputedStyle(root).getPropertyValue('--color-bg-primary')?.trim() || '#ffffff'
     }
-  } catch (e) {
+  } catch {
     // ignore cross-origin or inaccessible parent documents
   }
 }
@@ -38,7 +38,7 @@ const withTheme: Decorator = (Story, context) => {
   if (window.parent && window.parent !== window) {
     try {
       applyThemeToDocument(window.parent.document, theme)
-    } catch (e) {
+    } catch {
       // parent may be cross-origin or inaccessible — ignore silently
     }
   }

@@ -126,12 +126,6 @@ export const SidebarMenuItem = ({
   const controlled = openProp !== undefined
   const open = controlled ? !!openProp : openState
 
-  useEffect(() => {
-    if (controlled) {
-      setOpenState(!!openProp)
-    }
-  }, [openProp, controlled])
-
   const toggle = () => {
     const next = !open
     if (!controlled) setOpenState(next)
