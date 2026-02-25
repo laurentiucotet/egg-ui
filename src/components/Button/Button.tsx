@@ -7,7 +7,7 @@ const button = tv({
     'font-medium font-semibold',
     'transition-all duration-200',
     'focus:outline-none focus:ring-2 focus:ring-offset-2',
-    'focus:ring-[var(--color-primary)] focus:ring-offset-white',
+    'focus:ring-primary focus:ring-offset-bg-primary',
     'disabled:opacity-50 disabled:pointer-events-none cursor-pointer',
     // Use theme border radius
     'rounded-[var(--radius-theme)]',
@@ -16,7 +16,7 @@ const button = tv({
     intent: {
       primary: [
         'bg-[var(--color-primary)]',
-        'text-white',
+        'text-[var(--color-text-inverse)]',
         'hover:bg-[var(--color-primary-hover)]',
         'active:bg-[var(--color-primary-active)]',
         'dark:bg-[var(--color-primary-hover)]',
@@ -28,7 +28,7 @@ const button = tv({
         'bg-[var(--color-bg-secondary)]',
         'text-[var(--color-text-primary)]',
         'hover:bg-[var(--color-bg-tertiary)]',
-        'border border-[var(--color-border)]',
+        'border border-border',
         'dark:bg-[var(--color-neutral-700)]',
         'dark:text-[var(--color-neutral-100)]',
         'dark:hover:bg-[var(--color-neutral-600)]',
@@ -36,7 +36,7 @@ const button = tv({
       ].join(' '),
       danger: [
         'bg-[var(--color-error)]',
-        'text-white',
+        'text-[var(--color-text-inverse)]',
         'hover:bg-[var(--color-error-light)]',
         'active:bg-[var(--color-error-dark)]',
         'dark:bg-[var(--color-error-light)]',
@@ -54,7 +54,7 @@ const button = tv({
         'bg-transparent',
         'border-2 border-[var(--color-primary)]',
         'text-[var(--color-primary)]',
-        'hover:bg-[var(--color-primary)] hover:text-white',
+        'hover:bg-[var(--color-primary)] hover:text-[var(--color-text-inverse)]',
         'dark:border-[var(--color-primary-hover)]',
         'dark:text-[var(--color-primary-hover)]',
       ].join(' '),
@@ -103,8 +103,6 @@ export const Button = ({
     <button
       className={button({ intent, size, fullWidth, className })}
       style={{
-        // Use theme radius from CSS custom property
-        borderRadius: 'var(--radius-theme)',
         fontFamily: 'var(--font-sans)',
         ...style,
       }}
