@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 import { ChevronRight, ChevronDown } from 'lucide-react'
 import { useSidebarMenu } from '../SidebarMenu/SidebarMenu'

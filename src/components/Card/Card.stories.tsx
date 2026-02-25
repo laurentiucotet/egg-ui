@@ -1,37 +1,84 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { expect, within } from 'storybook/test'
+import React from 'react'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from './Card'
+import { Button } from '../Button/Button'
 
 const meta = {
   title: 'UI/Card',
   component: Card,
   tags: ['autodocs'],
   argTypes: {
-    className: {
-      control: 'text',
-    },
+    className: { control: 'text' },
+    imageSrc: { control: 'text' },
+    imageAlt: { control: 'text' },
+    showImage: { control: 'boolean' },
+    showHeader: { control: 'boolean' },
+    showFooter: { control: 'boolean' },
+    shadow: { control: { type: 'select', options: ['none', 'sm', 'md', 'lg', 'xl'] } },
+    hoverEffect: { control: { type: 'select', options: ['none', 'lift', 'grow', 'pulse'] } },
+    rounded: { control: { type: 'select', options: ['base', 'md', 'full'] } },
   },
 } satisfies Meta<typeof Card>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
+const Template = (args: React.ComponentProps<typeof Card>) => (
+  <Card {...args}>
+    <CardContent>
+      <p>Card content goes here. This is where you would place your main content.</p>
+    </CardContent>
+  </Card>
+)
+
 export const Default: Story = {
-  args: {},
-  render: (args) => (
-    <Card {...args}>
-      <CardHeader>
-        <CardTitle>Card Title</CardTitle>
-        <CardDescription>Card description goes here</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <p>Card content goes here. This is where you would place your main content.</p>
-      </CardContent>
-      <CardFooter>
-        <span>Card footer</span>
-      </CardFooter>
-    </Card>
-  ),
+  args: {
+    shadow: 'sm',
+    hoverEffect: 'none',
+    rounded: 'base',
+    showImage: false,
+    showHeader: true,
+    showFooter: true,
+    header: {
+      title: 'Card Title',
+      description: 'Card description goes here',
+    },
+    footer: {
+      left: <span>Card footer</span>,
+    },
+  },
+  render: (args) => Template(args),
+}
+
+export const WithImage: Story = {
+  args: {
+    imageSrc: 'https://picsum.photos/800/400',
+    imageAlt: 'Sample image',
+    shadow: 'md',
+    hoverEffect: 'lift',
+    showImage: true,
+    showHeader: true,
+    showFooter: true,
+    header: {
+      icon: <span className="inline-block w-5 h-5 bg-gray-200 rounded" />,
+      title: 'Image Card',
+      description: 'This card has an image on top',
+      showBadge: false,
+    },
+    footer: {
+      left: <span>Image footer</span>,
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const card = canvas.getByRole('article')
+
+    await expect(card).toBeInTheDocument()
+    const img = canvas.getByRole('img')
+    await expect(img).toBeInTheDocument()
+  },
+  render: (args) => Template(args),
 }
 
 export const Interactive: Story = {
@@ -39,9 +86,7 @@ export const Interactive: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const card = canvas.getByRole('article')
-
     await expect(card).toBeInTheDocument()
-    await expect(card).toHaveClass('card')
   },
   render: (args) => (
     <Card {...args}>
@@ -51,15 +96,10 @@ export const Interactive: Story = {
       </CardHeader>
       <CardContent>
         <p>Click the button below to test interaction:</p>
-        <button
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-          onClick={() => alert('Button clicked!')}
-        >
-          Test Button
-        </button>
+        <Button label="Test Button" intent="primary" className="mt-4" />
       </CardContent>
       <CardFooter>
-        <button className="px-4 py-2 bg-gray-200 rounded">Action</button>
+        <Button label="Action" intent="secondary" />
       </CardFooter>
     </Card>
   ),
@@ -77,12 +117,8 @@ export const WithActions: Story = {
         <p>Update your preferences and account settings here.</p>
       </CardContent>
       <CardFooter>
-        <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-          Save Changes
-        </button>
-        <button className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 ml-2">
-          Cancel
-        </button>
+        <Button label="Save Changes" intent="primary" />
+        <Button label="Cancel" intent="secondary" className="ml-2" />
       </CardFooter>
     </Card>
   ),

@@ -81,6 +81,8 @@
   --color-bg-secondary: var(--color-neutral-100);
   --color-bg-tertiary: var(--color-neutral-200);
   --color-bg-inverse: var(--color-neutral-900);
+  /* Card background (explicit white card surface token) */
+  --color-card-bg: #ffffff;
 
   /* Borders */
   --color-border: var(--color-neutral-200);
@@ -201,6 +203,8 @@
 
   --color-border: var(--color-neutral-700);
   --color-border-muted: var(--color-neutral-800);
+  /* Card background in dark mode */
+  --color-card-bg: var(--color-neutral-800);
 }
 
 /* Color theme variations - Lime */
