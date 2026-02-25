@@ -3,9 +3,10 @@ import { expect, within } from 'storybook/test'
 import React from 'react'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from './Card'
 import { Button } from '../Button/Button'
+import { Badge } from '../Badge'
 
 const meta = {
-  title: 'UI/Card',
+  title: 'UI/Card/Card',
   component: Card,
   tags: ['autodocs'],
   argTypes: {
@@ -41,8 +42,10 @@ export const Default: Story = {
     showHeader: true,
     showFooter: true,
     header: {
-      title: 'Card Title',
+      heading: 'Card Title',
       description: 'Card description goes here',
+      badge: <Badge>New</Badge>,
+      showBadge: true,
     },
     footer: {
       left: <span>Card footer</span>,
@@ -62,7 +65,7 @@ export const WithImage: Story = {
     showFooter: true,
     header: {
       icon: <span className="inline-block w-5 h-5 bg-gray-200 rounded" />,
-      title: 'Image Card',
+      heading: 'Image Card',
       description: 'This card has an image on top',
       showBadge: false,
     },
