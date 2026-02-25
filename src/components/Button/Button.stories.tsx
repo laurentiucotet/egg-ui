@@ -6,6 +6,13 @@ const meta = {
   title: 'UI/Button',
   component: Button,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'This button pulls its colors, spacing, radius and other styles from the design tokens defined in `design-tokens.css`. The tokens are registered in `tailwind.config.ts` so you can use plain utility classes such as `bg-primary` rather than arbitrary values.',
+      },
+    },
+  },
   args: {
     label: 'Button',
   },

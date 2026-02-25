@@ -253,46 +253,74 @@ export const theme = {
 
 // Default theme values (for easy access)
 export const defaultTheme = {
-  // Primary
-  primaryColor: theme.color.primary[600],
-  primaryHover: theme.color.primary[500],
-  primaryActive: theme.color.primary[700],
+  // Primary (reference CSS token variables)
+  primaryColor: 'var(--color-primary-600)',
+  primaryHover: 'var(--color-primary-500)',
+  primaryActive: 'var(--color-primary-700)',
 
   // Secondary
-  secondaryColor: theme.color.secondary.lime[500],
-  secondaryHover: theme.color.secondary.lime[400],
+  secondaryColor: 'var(--color-secondary-lime-500)',
+  secondaryHover: 'var(--color-secondary-lime-400)',
 
   // Corner radius
-  cornerRadius: theme.radius.md,
+  cornerRadius: 'var(--radius-md)',
 
-  // Spacing
-  spacing: theme.spacing,
-  spacingDefault: theme.spacing.default,
-  spacingLoose: theme.spacing.loose,
-  spacingCompact: theme.spacing.compact,
+  // Spacing (references to token names; components can use these as CSS variables)
+  spacingDefault: 'var(--spacing-default)',
+  spacingLoose: 'var(--spacing-loose)',
+  spacingCompact: 'var(--spacing-compact)',
 
   // Typography
-  fontFamily: theme.fontFamily,
-  fontSize: theme.fontSize,
-  fontWeight: theme.fontWeight,
-  lineHeight: theme.lineHeight,
-  letterSpacing: theme.letterSpacing,
+  fontFamily: {
+    sans: 'var(--font-sans)',
+    serif: 'var(--font-serif)',
+    mono: 'var(--font-mono)'
+  },
 
-  // Colors
-  color: theme.color,
-  text: theme.text,
-  background: theme.background,
-  border: theme.border,
+  // Colors (expose a small set of commonly used CSS var references)
+  color: {
+    primary: 'var(--color-primary-600)',
+    primaryHover: 'var(--color-primary-hover)',
+    secondary: 'var(--color-secondary)',
+    success: 'var(--color-success)',
+    error: 'var(--color-error)',
+    warning: 'var(--color-warning)',
+    info: 'var(--color-info)'
+  },
 
-  // Shadows
-  shadow: theme.shadow,
+  // Shadows & transitions
+  shadow: {
+    base: 'var(--shadow-base)',
+    md: 'var(--shadow-md)',
+    lg: 'var(--shadow-lg)'
+  },
 
-  // Transitions
-  transition: theme.transition,
+  transition: {
+    base: 'var(--transition-base)'
+  },
 
   // Z-index
-  zIndex: theme.zIndex,
+  zIndex: {
+    modal: 'var(--z-modal)',
+    dropdown: 'var(--z-dropdown)'
+  }
 }
 
 export type Theme = typeof theme
 export type DefaultTheme = typeof defaultTheme
+
+// Simple theme mode registry — only `light` and `dark` modes are exposed here.
+export const themes = {
+  light: {
+    id: 'light',
+    // no class needed; tokens in `:root` represent the light mode
+    className: ''
+  },
+  dark: {
+    id: 'dark',
+    // applying this class to document root enables dark tokens defined in CSS
+    className: 'dark'
+  }
+} as const
+
+export type ThemeMode = keyof typeof themes

@@ -1,45 +1,47 @@
 import type { Preview, Decorator } from '@storybook/react-vite'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 import '../src/index.css'
+// design tokens file is parsed by the addon via glob; no need to import here
 
-// Initialize MSW
-initialize()
+// Initialize MSW with a storybook-scoped service worker path
+initialize({ serviceWorker: { url: './mockServiceWorker.js' } })
+
+const applyThemeToDocument = (doc: Document, theme: string) => {
+  try {
+    const root = doc.documentElement
+    if (theme === 'dark') {
+      root.classList.add('dark')
+      root.style.colorScheme = 'dark'
+      root.style.backgroundColor = getComputedStyle(root).getPropertyValue('--color-bg-primary')?.trim() || '#0f172a'
+    } else if (theme === 'system') {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      root.classList.toggle('dark', prefersDark)
+      root.style.colorScheme = prefersDark ? 'dark' : 'light'
+      root.style.backgroundColor = getComputedStyle(root).getPropertyValue('--color-bg-primary')?.trim() || (prefersDark ? '#0f172a' : '#ffffff')
+    } else {
+      root.classList.remove('dark')
+      root.style.colorScheme = 'light'
+      root.style.backgroundColor = getComputedStyle(root).getPropertyValue('--color-bg-primary')?.trim() || '#ffffff'
+    }
+  } catch (e) {
+    // ignore cross-origin or inaccessible parent documents
+  }
+}
 
 const withTheme: Decorator = (Story, context) => {
   const theme = context.globals.theme ?? 'light'
-  const spacing = context.globals.spacing ?? 'loose'
-  const colorTheme = context.globals.colorTheme ?? 'lime'
-  const fontFamily = context.globals.fontFamily ?? 'sans'
 
-  const root = document.documentElement
+  // Apply theme to preview document
+  applyThemeToDocument(window.document, theme)
 
-  // Theme mode
-  if (theme === 'dark') {
-    root.classList.add('dark')
-    root.style.colorScheme = 'dark'
-    root.style.backgroundColor = '#0f172a'
-  } else if (theme === 'light') {
-    root.classList.remove('dark')
-    root.style.colorScheme = 'light'
-    root.style.backgroundColor = '#ffffff'
-  } else {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    root.classList.toggle('dark', prefersDark)
-    root.style.colorScheme = prefersDark ? 'dark' : 'light'
-    root.style.backgroundColor = prefersDark ? '#0f172a' : '#ffffff'
+  // Also try to apply theme to parent (manager/docs) so Docs page reflects background
+  if (window.parent && window.parent !== window) {
+    try {
+      applyThemeToDocument(window.parent.document, theme)
+    } catch (e) {
+      // parent may be cross-origin or inaccessible — ignore silently
+    }
   }
-
-  // Spacing mode
-  root.classList.remove('spacing-loose', 'spacing-compact')
-  root.classList.add(`spacing-${spacing}`)
-
-  // Color theme
-  root.classList.remove('theme-lime', 'theme-fuchsia')
-  root.classList.add(`theme-${colorTheme}`)
-
-  // Font family
-  root.classList.remove('font-sans', 'font-serif', 'font-mono')
-  root.classList.add(`font-${fontFamily}`)
 
   return Story(context)
 }
@@ -59,50 +61,11 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
-    spacing: {
-      description: 'Spacing mode',
-      toolbar: {
-        title: 'Spacing',
-        icon: 'arrowdown',
-        items: [
-          { value: 'loose', title: 'Loose', icon: 'arrowdown' },
-          { value: 'compact', title: 'Compact', icon: 'arrowup' },
-        ],
-        dynamicTitle: true,
-      },
-    },
-    colorTheme: {
-      description: 'Accent color theme',
-      toolbar: {
-        title: 'Accent',
-        icon: 'circlehollow',
-        items: [
-          { value: 'lime', title: 'Lime', icon: 'circle' },
-          { value: 'fuchsia', title: 'Fuchsia', icon: 'circle' },
-        ],
-        dynamicTitle: true,
-      },
-    },
-    fontFamily: {
-      description: 'Font family',
-      toolbar: {
-        title: 'Font',
-        icon: 'filter',
-        items: [
-          { value: 'sans', title: 'Sans', icon: 'filter' },
-          { value: 'serif', title: 'Serif', icon: 'filter' },
-          { value: 'mono', title: 'Mono', icon: 'filter' },
-        ],
-        dynamicTitle: true,
-      },
-    },
+    // only theme (light/dark) remains
   },
 
   initialGlobals: {
-    theme: 'light',
-    spacing: 'loose',
-    colorTheme: 'lime',
-    fontFamily: 'sans',
+    theme: 'light'
   },
 
   decorators: [withTheme],
@@ -116,6 +79,10 @@ const preview: Preview = {
     },
     a11y: {
       test: 'todo',
+    },
+    // design token addon configuration
+    designToken: {
+      defaultTab: 'Colors',
     },
   },
   loaders: [mswLoader],
