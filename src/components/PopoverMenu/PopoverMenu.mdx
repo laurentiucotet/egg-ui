@@ -1,0 +1,186 @@
+import { Canvas, Meta, Story, Controls } from '@storybook/blocks'
+import * as PopoverMenuStories from './PopoverMenu.stories'
+
+<Meta of={PopoverMenuStories} />
+
+# PopoverMenu
+
+A versatile popover menu component that displays a list of menu items in a floating panel. The PopoverMenu uses the ListItems component pattern internally to provide a consistent menu item experience.
+
+## Features
+
+- **Flexible Positioning**: Position the menu relative to the trigger (top, bottom, left, right)
+- **Alignment Options**: Align the menu (start, center, end)
+- **Compound Components**: Use `PopoverMenu.Item`, `PopoverMenu.Separator`, and `PopoverMenu.Label` for composition
+- **Keyboard Support**: Close with Escape key
+- **Click Outside**: Automatically closes when clicking outside
+- **Controlled/Uncontrolled**: Supports both controlled and uncontrolled open state
+- **Icons & Actions**: Support for icons and action elements in menu items
+- **Active & Disabled States**: Visual feedback for active and disabled items
+- **Auto-close Control**: Optionally keep menu open after item selection
+
+## Usage
+
+### Basic Example
+
+<Canvas of={PopoverMenuStories.Default} />
+
+### With Labels and Sections
+
+Use `PopoverMenu.Label` to create labeled sections in your menu:
+
+<Canvas of={PopoverMenuStories.WithLabels} />
+
+### With Actions
+
+Add action elements (like badges or keyboard shortcuts) to menu items:
+
+<Canvas of={PopoverMenuStories.WithActions} />
+
+### Active Items
+
+Highlight the currently active menu item:
+
+<Canvas of={PopoverMenuStories.WithActiveItem} />
+
+### Disabled Items
+
+Disable menu items to prevent interaction:
+
+<Canvas of={PopoverMenuStories.WithDisabledItems} />
+
+## Positioning
+
+### Top Position
+
+<Canvas of={PopoverMenuStories.PositionTop} />
+
+### Right Position
+
+<Canvas of={PopoverMenuStories.PositionRight} />
+
+## Alignment
+
+### Center Alignment
+
+<Canvas of={PopoverMenuStories.AlignCenter} />
+
+### End Alignment
+
+<Canvas of={PopoverMenuStories.AlignEnd} />
+
+## Advanced Usage
+
+### Prevent Auto-close
+
+Keep the menu open after clicking items:
+
+<Canvas of={PopoverMenuStories.NoAutoClose} />
+
+### Complex Menu
+
+A comprehensive example with multiple sections, labels, and actions:
+
+<Canvas of={PopoverMenuStories.ComplexMenu} />
+
+## Component API
+
+### PopoverMenu Props
+
+<Controls of={PopoverMenuStories.Default} />
+
+### PopoverMenu.Item Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `icon` | `React.ReactNode` | - | Icon to display before the label |
+| `label` | `React.ReactNode` | - | Label text (required) |
+| `action` | `React.ReactNode` | - | Action element to display after the label |
+| `active` | `boolean` | `false` | Whether the item is active |
+| `disabled` | `boolean` | `false` | Whether the item is disabled |
+| `onSelect` | `() => void` | - | Callback when item is clicked |
+
+### PopoverMenu.Separator Props
+
+The separator component accepts standard HTML div props.
+
+### PopoverMenu.Label Props
+
+The label component accepts standard HTML div props and renders its children.
+
+## Accessibility
+
+- Menu items are rendered as buttons with proper ARIA attributes
+- Keyboard navigation with Escape key to close
+- Focus management for better keyboard accessibility
+- Disabled items are properly marked and non-interactive
+
+## Best Practices
+
+1. **Use Clear Labels**: Make menu item labels descriptive and action-oriented
+2. **Group Related Items**: Use separators and labels to organize menu items
+3. **Limit Menu Size**: Keep menus concise to avoid overwhelming users
+4. **Provide Visual Feedback**: Use active states to show current selection
+5. **Consider Mobile**: Ensure touch targets are large enough for mobile devices
+6. **Keyboard Shortcuts**: Display keyboard shortcuts in action elements when applicable
+
+## Examples
+
+### User Account Menu
+
+```tsx
+<PopoverMenu trigger={<Button label="Account" />}>
+  <PopoverMenu.Label>Account</PopoverMenu.Label>
+  <PopoverMenu.Item icon={<User />} label="Profile" />
+  <PopoverMenu.Item icon={<Settings />} label="Settings" />
+  <PopoverMenu.Separator />
+  <PopoverMenu.Item icon={<LogOut />} label="Logout" />
+</PopoverMenu>
+```
+
+### Context Menu with Keyboard Shortcuts
+
+```tsx
+<PopoverMenu trigger={<Button label="Actions" />}>
+  <PopoverMenu.Item
+    icon={<Edit />}
+    label="Edit"
+    action={<span className="text-xs">⌘E</span>}
+  />
+  <PopoverMenu.Item
+    icon={<Copy />}
+    label="Duplicate"
+    action={<span className="text-xs">⌘D</span>}
+  />
+  <PopoverMenu.Separator />
+  <PopoverMenu.Item
+    icon={<Trash />}
+    label="Delete"
+    action={<span className="text-xs text-red-500">⌘⌫</span>}
+  />
+</PopoverMenu>
+```
+
+### Notification Menu with Badges
+
+```tsx
+<PopoverMenu trigger={<Button label="Notifications" />}>
+  <PopoverMenu.Item
+    icon={<Bell />}
+    label="Notifications"
+    action={<Badge>3</Badge>}
+  />
+  <PopoverMenu.Item
+    icon={<Mail />}
+    label="Messages"
+    action={<Badge>12</Badge>}
+  />
+</PopoverMenu>
+```
+
+## Related Components
+
+- **Button**: Used as trigger element
+- **ListItems**: Internal menu item pattern
+- **Dropdown**: For form select inputs
+- **SidebarMenu**: For navigation menus

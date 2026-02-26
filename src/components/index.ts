@@ -28,3 +28,11 @@ export type { LoginFormProps, LoginFormData } from './LoginForm'
 
 export { RegisterForm } from './RegisterForm'
 export type { RegisterFormProps, RegisterFormData } from './RegisterForm'
+
+export { PopoverMenu, PopoverMenuItem, PopoverMenuSeparator, PopoverMenuLabel } from './PopoverMenu'
+export type {
+  PopoverMenuProps,
+  PopoverMenuItemProps,
+  PopoverMenuSeparatorProps,
+  PopoverMenuLabelProps,
+} from './PopoverMenu'

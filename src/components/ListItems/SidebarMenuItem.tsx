@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 import { ChevronRight, ChevronDown } from 'lucide-react'
-import { useSidebarMenu } from '../SidebarMenu/SidebarMenu'
 
 const listItem = tv({
   base: [
@@ -107,6 +106,7 @@ export const SidebarMenuItem = ({
   className,
   active,
   disabled,
+  collapsed,
   icon,
   action,
   label,
@@ -116,7 +116,6 @@ export const SidebarMenuItem = ({
   children,
   ...props
 }: SidebarMenuItemProps) => {
-  const { collapsed } = useSidebarMenu()
 
   // determine if we actually have children
   const hasChildren = React.Children.count(children) > 0
