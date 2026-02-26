@@ -1,0 +1,59 @@
+import { Meta, Primary, Controls, Canvas } from '@storybook/blocks'
+import * as DropdownStories from './Dropdown.stories'
+
+<Meta of={DropdownStories} />
+
+# Dropdown
+
+A versatile dropdown selector component that allows users to choose from a list of options. It supports multiple sizes, visual variants, labels, icons, and validation states.
+
+## Usage
+
+```tsx
+import { Dropdown } from './components/Dropdown'
+
+const options = [
+  { value: 'option1', label: 'Option 1' },
+  { value: 'option2', label: 'Option 2' },
+  { value: 'option3', label: 'Option 3' },
+]
+
+<Dropdown
+  options={options}
+  label="Select an option"
+  showLabel
+  onChange={(value) => console.log(value)}
+/>
+```
+
+## Features
+
+- **Multiple Sizes**: Available in small, medium, and large sizes
+- **Visual Variants**: Supports default, error, and success states
+- **Labels & Icons**: Optional label with Lucide icon support
+- **Validation**: Built-in error message display
+- **Disabled State**: Full support for disabled options and entire dropdown
+- **Custom Options**: Flexible option configuration with disabled individual items
+
+## Props
+
+<Primary />
+<Controls />
+
+## Examples
+
+### Basic Usage
+
+<Canvas of={DropdownStories.Default} />
+
+### With Label
+
+<Canvas of={DropdownStories.WithLabel} />
+
+### Error State
+
+<Canvas of={DropdownStories.Error} />
+
+### Disabled
+
+<Canvas of={DropdownStories.Disabled} />

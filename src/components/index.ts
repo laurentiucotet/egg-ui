@@ -1,12 +1,12 @@
-export { Button } from './Button/Button'
-export type { ButtonProps } from './Button/Button'
+export { Button } from './Button'
+export type { ButtonProps } from './Button'
 
 export { ConfirmDialog } from './ConfirmDialog/ConfirmDialog'
 export type { ConfirmDialogProps } from './ConfirmDialog/ConfirmDialog'
 
-export { Input } from './Input/Input'
-export type { InputProps } from './Input/Input'
-export { PasswordStrengthIndicator } from './Input/PasswordStrengthIndicator'
+export { Input } from './Input'
+export type { InputProps } from './Input'
+export { PasswordStrengthIndicator } from './Input'
 
 export { TextArea } from './TextArea/TextArea'
 export type { TextAreaProps } from './TextArea/TextArea'
@@ -17,19 +17,7 @@ export { CardFooter } from './CardFooter'
 export { Badge } from './Badge'
 export { Icon } from './Icon'
 export type { IconProps } from './Icon/Icon.types'
-export type { CardProps } from './Card/Card.types'
-export type { CardHeaderProps } from './CardHeader'
-export type { CardFooterProps } from './CardFooter'
 export type { BadgeProps } from './Badge'
-export type { CardProps } from './Card/Card'
 
-export * from './SidebarMenu/index'
-export type {
-  SidebarMenuProps,
-  SidebarMenuHeaderProps,
-  SidebarMenuFooterProps,
-  SidebarMenuListProps,
-  SidebarMenuGroupProps,
-  SidebarMenuGroupTitleProps,
-  SidebarMenuItemProps,
-} from './SidebarMenu/index'
+export { SidebarMenuItem } from './ListItems'
+export type { SidebarMenuItemProps } from './ListItems'

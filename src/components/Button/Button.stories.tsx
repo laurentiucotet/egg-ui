@@ -9,7 +9,7 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: 'This button pulls its colors, spacing, radius and other styles from the design tokens defined in `design-tokens.css`. The tokens are registered in `tailwind.config.ts` so you can use plain utility classes such as `bg-primary` rather than arbitrary values.',
+        component: 'A versatile button component that supports multiple intents (primary, secondary, danger, ghost, outline), sizes, and states. Uses design tokens from `design-tokens.css` for consistent styling.',
       },
     },
   },
@@ -19,11 +19,44 @@ const meta = {
   argTypes: {
     intent: {
       control: 'select',
-      options: ['primary', 'secondary', 'danger'],
+      options: ['primary', 'secondary', 'danger', 'ghost', 'outline'],
+      description: 'The visual intent/style of the button',
+      table: {
+        type: { summary: "'primary' | 'secondary' | 'danger' | 'ghost' | 'outline'" },
+        defaultValue: { summary: 'primary' },
+      },
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
+      description: 'The size of the button',
+      table: {
+        type: { summary: "'sm' | 'md' | 'lg'" },
+        defaultValue: { summary: 'md' },
+      },
+    },
+    fullWidth: {
+      control: 'boolean',
+      description: 'Whether the button should take full width of its container',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    label: {
+      control: 'text',
+      description: 'The text label displayed inside the button',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Whether the button is disabled',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
   },
 } satisfies Meta<typeof Button>
@@ -31,45 +64,162 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+/**
+ * Primary buttons are used for main actions or calls to action.
+ * They have the highest visual prominence and should be used sparingly.
+ */
 export const Primary: Story = {
   args: {
     intent: 'primary',
     label: 'Primary Button',
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Primary buttons are used for main actions. They have the highest visual prominence.',
+      },
+    },
+  },
 }
 
+/**
+ * Secondary buttons are used for secondary actions that complement primary actions.
+ * They have less visual weight than primary buttons.
+ */
 export const Secondary: Story = {
   args: {
     intent: 'secondary',
     label: 'Secondary Button',
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Secondary buttons are used for less prominent actions alongside primary buttons.',
+      },
+    },
+  },
 }
 
+/**
+ * Danger buttons are used for destructive or dangerous actions.
+ * They use error/warning colors to communicate caution.
+ */
 export const Danger: Story = {
   args: {
     intent: 'danger',
     label: 'Danger Button',
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Danger buttons are used for destructive actions like delete or remove.',
+      },
+    },
+  },
 }
 
+/**
+ * Ghost buttons have a transparent background and are used for low-priority actions.
+ * They're often used in toolbars, cards, or alongside other buttons.
+ */
+export const Ghost: Story = {
+  args: {
+    intent: 'ghost',
+    label: 'Ghost Button',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ghost buttons have transparent backgrounds and are used for low-priority actions.',
+      },
+    },
+  },
+}
+
+/**
+ * Outline buttons have a border but no background color.
+ * They're useful for secondary actions or in tight spaces.
+ */
+export const Outline: Story = {
+  args: {
+    intent: 'outline',
+    label: 'Outline Button',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Outline buttons have a border with transparent background.',
+      },
+    },
+  },
+}
+
+/**
+ * Small buttons are used when space is limited or in compact UIs.
+ */
 export const Small: Story = {
   args: {
     size: 'sm',
     label: 'Small Button',
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Small size button for compact interfaces.',
+      },
+    },
+  },
 }
 
+/**
+ * Large buttons are used for prominent call-to-action buttons.
+ */
 export const Large: Story = {
   args: {
     size: 'lg',
     label: 'Large Button',
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Large size button for prominent CTAs.',
+      },
+    },
+  },
 }
 
+/**
+ * Disabled buttons cannot be interacted with and are visually muted.
+ */
 export const Disabled: Story = {
   args: {
     label: 'Disabled Button',
     disabled: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Disabled state prevents user interaction.',
+      },
+    },
+  },
+}
+
+/**
+ * Full width buttons stretch to fill their container's width.
+ * Useful for mobile interfaces or form submission buttons.
+ */
+export const FullWidth: Story = {
+  args: {
+    fullWidth: true,
+    label: 'Full Width Button',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Full width button that spans the container width.',
+      },
+    },
   },
 }
 

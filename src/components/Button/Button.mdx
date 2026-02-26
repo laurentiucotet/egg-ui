@@ -1,0 +1,106 @@
+import { Meta, Primary, Controls, Canvas } from '@storybook/blocks'
+import * as ButtonStories from './Button.stories'
+
+<Meta of={ButtonStories} />
+
+# Button
+
+A versatile button component that supports multiple intents (primary, secondary, danger, ghost, outline), sizes, and states. Uses design tokens from `design-tokens.css` for consistent styling.
+
+## Usage
+
+```tsx
+import { Button } from './components'
+
+function MyComponent() {
+  return (
+    <Button 
+      label="Click me" 
+      intent="primary" 
+      size="md" 
+      onClick={() => console.log('clicked')}
+    />
+  )
+}
+```
+
+## Props
+
+<Controls />
+
+## Variants
+
+### Primary
+
+Primary buttons are used for main actions or calls to action. They have the highest visual prominence.
+
+<Canvas of={ButtonStories.Primary} />
+
+### Secondary
+
+Secondary buttons are used for secondary actions that complement primary actions.
+
+<Canvas of={ButtonStories.Secondary} />
+
+### Danger
+
+Danger buttons are used for destructive or dangerous actions.
+
+<Canvas of={ButtonStories.Danger} />
+
+### Ghost
+
+Ghost buttons have a transparent background and are used for low-priority actions.
+
+<Canvas of={ButtonStories.Ghost} />
+
+### Outline
+
+Outline buttons have a border but no background color.
+
+<Canvas of={ButtonStories.Outline} />
+
+## Sizes
+
+### Small
+
+Small buttons are used when space is limited.
+
+<Canvas of={ButtonStories.Small} />
+
+### Large
+
+Large buttons are used for prominent call-to-action buttons.
+
+<Canvas of={ButtonStories.Large} />
+
+## States
+
+### Disabled
+
+Disabled buttons cannot be interacted with.
+
+<Canvas of={ButtonStories.Disabled} />
+
+### Full Width
+
+Full width buttons stretch to fill their container.
+
+<Canvas of={ButtonStories.FullWidth} />
+
+## Design Tokens
+
+The Button component uses the following design tokens:
+
+- `--color-primary` - Primary button background
+- `--color-primary-hover` - Primary button hover state
+- `--color-primary-active` - Primary button active state
+- `--color-error` - Danger button background
+- `--color-error-light` - Danger button hover state
+- `--color-error-dark` - Danger button active state
+- `--color-bg-secondary` - Secondary button background
+- `--color-bg-tertiary` - Secondary button hover state
+- `--color-text-primary` - Text color
+- `--color-text-inverse` - Inverse text color
+- `--radius-theme` - Border radius
+- `--font-sans` - Font family

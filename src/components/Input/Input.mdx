@@ -1,0 +1,140 @@
+import { Meta, Primary, Controls, Canvas } from '@storybook/blocks'
+import * as InputStories from './Input.stories'
+
+<Meta of={InputStories} />
+
+# Input
+
+A versatile input component that supports multiple input types, variants, sizes, and includes features like labels, icons, and password strength indicator. Uses design tokens for consistent styling.
+
+## Usage
+
+```tsx
+import { Input } from './components'
+
+function MyComponent() {
+  return (
+    <Input
+      label="Email"
+      showLabel
+      type="email"
+      placeholder="Enter your email"
+      icon="Mail"
+      required
+    />
+  )
+}
+```
+
+## Props
+
+<Controls />
+
+## Types
+
+### Text
+
+Basic text input for general text entry.
+
+<Canvas of={InputStories.Text} />
+
+### Password
+
+Password input that hides text and shows password strength indicator.
+
+<Canvas of={InputStories.Password} />
+
+### Email
+
+Email input for email addresses with appropriate keyboard support.
+
+<Canvas of={InputStories.Email} />
+
+## Variants
+
+### Default
+
+Default input styling.
+
+### Error
+
+Error variant for validation errors with red border.
+
+<Canvas of={InputStories.Error} />
+
+### Success
+
+Success variant for valid inputs with green border.
+
+<Canvas of={InputStories.Success} />
+
+## With Labels
+
+### Basic Label
+
+Input with label displayed above the field.
+
+<Canvas of={InputStories.WithLabel} />
+
+### Required Label
+
+Required input field with asterisk indicator.
+
+<Canvas of={InputStories.WithRequiredLabel} />
+
+## With Icons
+
+Input with Lucide icon in the label.
+
+<Canvas of={InputStories.WithIcon} />
+
+<Canvas of={InputStories.WithIconRequired} />
+
+## Sizes
+
+### Small
+
+Small input size for compact UIs.
+
+<Canvas of={InputStories.Small} />
+
+### Large
+
+Large input size for prominent form fields.
+
+<Canvas of={InputStories.Large} />
+
+## States
+
+### Disabled
+
+Disabled input that cannot be edited.
+
+<Canvas of={InputStories.Disabled} />
+
+## Password Strength
+
+The password input includes a strength indicator that shows:
+
+- Weak: Less than 8 characters
+- Medium: At least 8 characters with mixed case and numbers
+- Strong: At least 8 characters with uppercase, lowercase, numbers, and special characters
+
+<Canvas of={InputStories.PasswordStrength} />
+
+## Design Tokens
+
+The Input component uses the following design tokens:
+
+- `--color-bg-primary` - Input background
+- `--color-bg-inverse` - Dark mode input background
+- `--color-text-primary` - Text color
+- `--color-text-inverse` - Dark mode text color
+- `--color-text-muted` - Placeholder text color
+- `--color-border` - Border color
+- `--color-primary` - Focus border color
+- `--color-primary-hover` - Dark mode focus border
+- `--color-error` - Error border color
+- `--color-success` - Success border color
+- `--radius-theme` - Border radius
+- `--font-sans` - Font family

@@ -100,3 +100,75 @@ export const Default: StoryObj<typeof meta> = {
     return <CardHeader {...args} showBadge={showBadge} icon={iconElement} badge={badge} />
   },
 }
+
+export const NoBadge: StoryObj<typeof meta> = {
+  args: {
+    iconName: "bell",
+    heading: "Card Title",
+    description: "Card description",
+    showBadge: false,
+    badgeText: "New",
+    badgeVariant: "neutral",
+    badgeSize: "md",
+    showTitle: true,
+    showDescription: true,
+    showMenu: true,
+    className: "",
+    showIcon: true
+  },
+
+  render: (allArgs: CardHeaderStoryArgs) => {
+    const {
+      badgeText,
+      badgeVariant,
+      badgeSize,
+      showBadge,
+      iconName,
+      ...args
+    } = allArgs;
+
+    const badge = showBadge ? (badgeText && (<Badge variant={badgeVariant} size={badgeSize}>
+      {badgeText}
+    </Badge>)) : undefined;
+
+    const iconElement = iconName ? <Icon name={iconName} size="md" /> : undefined;
+
+    return <CardHeader {...args} showBadge={showBadge} icon={iconElement} badge={badge} />;
+  }
+};
+
+export const JustTitle: StoryObj<typeof meta> = {
+  args: {
+    iconName: "bell",
+    heading: "Card Title",
+    description: "Card description",
+    showBadge: false,
+    badgeText: "New",
+    badgeVariant: "neutral",
+    badgeSize: "md",
+    showTitle: true,
+    showDescription: false,
+    showMenu: true,
+    className: "",
+    showIcon: false
+  },
+
+  render: (allArgs: CardHeaderStoryArgs) => {
+    const {
+      badgeText,
+      badgeVariant,
+      badgeSize,
+      showBadge,
+      iconName,
+      ...args
+    } = allArgs;
+
+    const badge = showBadge ? (badgeText && (<Badge variant={badgeVariant} size={badgeSize}>
+      {badgeText}
+    </Badge>)) : undefined;
+
+    const iconElement = iconName ? <Icon name={iconName} size="md" /> : undefined;
+
+    return <CardHeader {...args} showBadge={showBadge} icon={iconElement} badge={badge} />;
+  }
+};

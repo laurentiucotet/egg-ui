@@ -2,12 +2,20 @@
 import { expect, userEvent } from 'storybook/test'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Input, type InputProps } from './Input'
+import { Input } from './Input'
+import type { InputProps } from './Input.types'
 
 const meta: Meta<InputProps> = {
-  title: 'UI / Input',
+  title: 'UI/Input',
   component: Input,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'A versatile input component that supports multiple input types, variants, sizes, and includes features like labels, icons, and password strength indicator. Uses design tokens for consistent styling.',
+      },
+    },
+  },
   args: {
     inputSize: 'md',
     variant: 'default',
@@ -15,31 +23,96 @@ const meta: Meta<InputProps> = {
     placeholder: 'Type here...',
   },
   argTypes: {
+    inputSize: {
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+      description: 'The size of the input field',
+      table: {
+        type: { summary: "'sm' | 'md' | 'lg'" },
+        defaultValue: { summary: 'md' },
+      },
+    },
+    variant: {
+      control: 'select',
+      options: ['default', 'error', 'success'],
+      description: 'The visual variant of the input',
+      table: {
+        type: { summary: "'default' | 'error' | 'success'" },
+        defaultValue: { summary: 'default' },
+      },
+    },
     showLabel: {
       control: 'boolean',
-      description: 'Toggle to show/hide the label',
+      description: 'Whether to show the label',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     label: {
       control: 'text',
-      description: 'Label text for the input field',
-      if: { arg: 'showLabel' },
+      description: 'The label text displayed above the input',
+      table: {
+        type: { summary: 'string' },
+      },
     },
     icon: {
       control: 'select',
       options: ['Mail', 'Phone', 'Search', 'User', 'Lock', 'Eye', 'EyeOff', 'Check', 'X', 'Home', 'Settings', 'Heart', 'Star', 'Calendar', 'Clock'],
-      description: 'Lucide icon to display next to the label',
+      description: 'Lucide icon to display in the label',
+      table: {
+        type: { summary: 'keyof typeof LucideIcons' },
+      },
     },
     required: {
       control: 'boolean',
       description: 'Whether the input is required (shows asterisk)',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    type: {
+      control: 'select',
+      options: ['text', 'password', 'email', 'tel', 'search', 'number'],
+      description: 'The input type',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'text' },
+      },
+    },
+    placeholder: {
+      control: 'text',
+      description: 'Placeholder text when input is empty',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Whether the input is disabled',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
   },
 }
 
 export default meta
 
+/**
+ * Basic text input for general text entry.
+ */
 export const Text: StoryObj<InputProps> = {
   args: { type: 'text' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Basic text input for general text entry.',
+      },
+    },
+  },
   play: async ({ canvasElement }) => {
     const input = canvasElement.querySelector('input') as HTMLInputElement
     await userEvent.type(input, 'hello')
@@ -47,8 +120,18 @@ export const Text: StoryObj<InputProps> = {
   },
 }
 
+/**
+ * Password input that hides text and shows password strength indicator.
+ */
 export const Password: StoryObj<InputProps> = {
   args: { type: 'password', placeholder: 'Enter password' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Password input with masked text and strength indicator.',
+      },
+    },
+  },
   play: async ({ canvasElement }) => {
     const input = canvasElement.querySelector('input') as HTMLInputElement
     await userEvent.type(input, 'secret')
@@ -56,8 +139,18 @@ export const Password: StoryObj<InputProps> = {
   },
 }
 
+/**
+ * Email input for email addresses with appropriate keyboard support.
+ */
 export const Email: StoryObj<InputProps> = {
   args: { type: 'email', placeholder: 'name@example.com' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Email input with appropriate keyboard for email addresses.',
+      },
+    },
+  },
   play: async ({ canvasElement }) => {
     const input = canvasElement.querySelector('input') as HTMLInputElement
     await userEvent.type(input, 'test@domain.com')
@@ -65,8 +158,18 @@ export const Email: StoryObj<InputProps> = {
   },
 }
 
+/**
+ * Error variant for validation errors.
+ */
 export const Error: StoryObj<InputProps> = {
   args: { variant: 'error', placeholder: 'Error state' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Error variant with red border for validation errors.',
+      },
+    },
+  },
   play: async ({ canvasElement }) => {
     const input = canvasElement.querySelector('input') as HTMLInputElement
     // expect error border class
@@ -74,6 +177,23 @@ export const Error: StoryObj<InputProps> = {
   },
 }
 
+/**
+ * Success variant for valid inputs.
+ */
+export const Success: StoryObj<InputProps> = {
+  args: { variant: 'success', placeholder: 'Success state' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Success variant with green border for valid inputs.',
+      },
+    },
+  },
+}
+
+/**
+ * Input with label displayed above the field.
+ */
 export const WithLabel: StoryObj<InputProps> = {
   args: { 
     showLabel: true,
@@ -81,8 +201,18 @@ export const WithLabel: StoryObj<InputProps> = {
     type: 'email',
     placeholder: 'Enter your email'
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Input field with label displayed above.',
+      },
+    },
+  },
 }
 
+/**
+ * Required input field with asterisk indicator.
+ */
 export const WithRequiredLabel: StoryObj<InputProps> = {
   args: { 
     showLabel: true,
@@ -91,8 +221,18 @@ export const WithRequiredLabel: StoryObj<InputProps> = {
     placeholder: 'Enter your full name',
     required: true
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Required field with asterisk in label.',
+      },
+    },
+  },
 }
 
+/**
+ * Password input with label and validation.
+ */
 export const WithLabelAndValidation: StoryObj<InputProps> = {
   args: { 
     showLabel: true,
@@ -100,6 +240,13 @@ export const WithLabelAndValidation: StoryObj<InputProps> = {
     type: 'password',
     placeholder: 'Enter your password',
     required: true
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Password field with label, required indicator, and strength meter.',
+      },
+    },
   },
   play: async ({ canvasElement }) => {
     const input = canvasElement.querySelector('input') as HTMLInputElement
@@ -115,6 +262,9 @@ export const WithLabelAndValidation: StoryObj<InputProps> = {
   },
 }
 
+/**
+ * Input with icon in the label.
+ */
 export const WithIcon: StoryObj<InputProps> = {
   args: { 
     showLabel: true,
@@ -123,8 +273,18 @@ export const WithIcon: StoryObj<InputProps> = {
     type: 'email',
     placeholder: 'Enter your email'
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Input with Lucide icon displayed in the label.',
+      },
+    },
+  },
 }
 
+/**
+ * Input with icon and required indicator.
+ */
 export const WithIconRequired: StoryObj<InputProps> = {
   args: { 
     showLabel: true,
@@ -134,9 +294,19 @@ export const WithIconRequired: StoryObj<InputProps> = {
     placeholder: 'Enter your phone number',
     required: true
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Input with icon and required field indicator.',
+      },
+    },
+  },
 }
 
-export const WithCustomIcon: StoryObj<InputProps> = {
+/**
+ * Search input with search icon.
+ */
+export const WithSearchIcon: StoryObj<InputProps> = {
   args: { 
     showLabel: true,
     label: 'Search',
@@ -144,29 +314,69 @@ export const WithCustomIcon: StoryObj<InputProps> = {
     type: 'search',
     placeholder: 'Search for something...'
   },
-}
-
-export const WithUserIcon: StoryObj<InputProps> = {
-  args: { 
-    showLabel: true,
-    label: 'Username',
-    icon: 'User',
-    type: 'text',
-    placeholder: 'Enter your username'
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search input with search icon.',
+      },
+    },
   },
 }
 
-export const WithLockIcon: StoryObj<InputProps> = {
+/**
+ * Small input size for compact UIs.
+ */
+export const Small: StoryObj<InputProps> = {
   args: { 
-    showLabel: true,
-    label: 'Password',
-    icon: 'Lock',
-    type: 'password',
-    placeholder: 'Enter your password',
-    required: true
+    inputSize: 'sm',
+    placeholder: 'Small input'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Small size input for compact interfaces.',
+      },
+    },
   },
 }
 
+/**
+ * Large input size for prominent form fields.
+ */
+export const Large: StoryObj<InputProps> = {
+  args: { 
+    inputSize: 'lg',
+    placeholder: 'Large input'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Large size input for prominent form fields.',
+      },
+    },
+  },
+}
+
+/**
+ * Disabled input that cannot be edited.
+ */
+export const Disabled: StoryObj<InputProps> = {
+  args: { 
+    disabled: true,
+    placeholder: 'Disabled input'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Disabled input that prevents user interaction.',
+      },
+    },
+  },
+}
+
+/**
+ * Password strength indicator showing requirements.
+ */
 export const PasswordStrength: StoryObj<InputProps> = {
   args: { 
     showLabel: true,
@@ -175,6 +385,13 @@ export const PasswordStrength: StoryObj<InputProps> = {
     type: 'password',
     placeholder: 'Enter a strong password',
     required: true
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Password input showing strength indicator and requirements.',
+      },
+    },
   },
   play: async ({ canvasElement }) => {
     const input = canvasElement.querySelector('input') as HTMLInputElement

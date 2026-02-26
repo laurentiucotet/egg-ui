@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
@@ -11,5 +11,9 @@ export default defineConfig({
       // watching that file causes an infinite reload loop; ignore it explicitly
       ignored: ['**/public/design-tokens.source.json'],
     },
+  },
+  test: {
+    environment: 'jsdom',
+    globals: true,
   },
 })
