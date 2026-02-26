@@ -22,8 +22,9 @@ export { Icon } from './Icon'
 export type { IconProps } from './Icon/Icon.types'
 export type { BadgeProps } from './Badge'
 
-export { SidebarMenuItem } from './ListItems'
-export type { SidebarMenuItemProps } from './ListItems'
 
 export { LoginForm } from './LoginForm'
 export type { LoginFormProps, LoginFormData } from './LoginForm'
+
+export { RegisterForm } from './RegisterForm'
+export type { RegisterFormProps, RegisterFormData } from './RegisterForm'

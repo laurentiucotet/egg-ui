@@ -1,0 +1,150 @@
+import { Meta, Primary, Controls, Canvas, Source } from '@storybook/blocks'
+import { RegisterForm } from './RegisterForm'
+import * as RegisterFormStories from './RegisterForm.stories'
+
+<Meta of={RegisterFormStories} />
+
+# RegisterForm
+
+A registration form component with full name, email, password, and confirm password fields, wrapped in a card component. The form includes built-in validation that prevents submission when required fields are empty.
+
+## Usage
+
+<Source language="tsx" code={`import { RegisterForm } from './RegisterForm'
+
+// Basic usage
+<RegisterForm onSubmit={(data) => console.log(data)} />
+
+// With custom styling
+<RegisterForm 
+  onSubmit={(data) => console.log(data)} 
+  className="w-full max-w-md mx-auto"
+/>`} />
+
+## Props
+
+<Controls />
+
+## RegisterFormData
+
+The data shape returned when the form is successfully submitted.
+
+| Property | Type | Description |
+|----------|------|-------------|
+| fullName | `string` | The user's full name |
+| email | `string` | The user's email address |
+| password | `string` | The user's password |
+| confirmPassword | `string` | Password confirmation |
+
+## Features
+
+### Form Validation
+- All fields (full name, email, password, and confirm password) are required
+- Form submission is prevented if any field is empty
+- Visual validation through HTML5 required attribute
+
+### Built-in Components
+The RegisterForm composes several existing components:
+- **[Card](/?path=/docs/components-card--docs)** - Main container with card styling
+- **[CardHeader](/?path=/docs/components-card--docs)** - Header with "Register" title and description
+- **[CardContent](/?path=/docs/components-card--docs)** - Form content wrapper
+- **[Input](/?path=/docs/components-input--docs)** - Text, email, and password input fields
+- **[Button](/?path=/docs/components-button--docs)** - Submit button
+
+## Examples
+
+### Default
+
+<Canvas of={RegisterFormStories.Default} />
+
+The default registration form with all required fields. All fields are required for submission.
+
+### Custom Class
+
+<Canvas of={RegisterFormStories.WithCustomClass} />
+
+Registration form with custom CSS class for wider layout.
+
+### Centered
+
+<Canvas of={RegisterFormStories.Centered} />
+
+Centered registration form with maximum width constraint - common pattern for registration pages.
+
+### Full Width
+
+<Canvas of={RegisterFormStories.FullWidth} />
+
+Registration form configured to take full width of its container.
+
+### Interactive: Form Submission
+
+<Canvas of={RegisterFormStories.FormSubmission} />
+
+Interactive story demonstrating form submission with valid data. Tests typing in all fields and submitting the form.
+
+### Interactive: Validation - Empty Full Name
+
+<Canvas of={RegisterFormStories.ValidationEmptyFullName} />
+
+Interactive story demonstrating validation prevents submission when full name field is empty.
+
+### Interactive: Validation - Empty Email
+
+<Canvas of={RegisterFormStories.ValidationEmptyEmail} />
+
+Interactive story demonstrating validation prevents submission when email field is empty.
+
+### Interactive: Validation - Empty Password
+
+<Canvas of={RegisterFormStories.ValidationEmptyPassword} />
+
+Interactive story demonstrating validation prevents submission when password field is empty.
+
+### Interactive: Validation - Empty Confirm Password
+
+<Canvas of={RegisterFormStories.ValidationEmptyConfirmPassword} />
+
+Interactive story demonstrating validation prevents submission when confirm password field is empty.
+
+### Interactive: Focus Management
+
+<Canvas of={RegisterFormStories.FocusManagement} />
+
+Focus is managed to direct users to the first input field.
+
+## Best Practices
+
+### Password Matching
+While this component collects both password and confirmPassword fields, it's recommended to implement password matching validation in your application logic:
+
+```tsx
+<RegisterForm 
+  onSubmit={(data) => {
+    if (data.password !== data.confirmPassword) {
+      // Show error message
+      alert('Passwords do not match')
+      return
+    }
+    // Proceed with registration
+    console.log('Registration data:', data)
+  }}
+/>
+```
+
+### Password Strength
+Consider adding password strength requirements in your application:
+- Minimum length (e.g., 8 characters)
+- Mix of uppercase and lowercase letters
+- Include numbers and special characters
+
+### Email Validation
+While the input type="email" provides basic validation, consider adding additional email format validation in your submission handler.
+
+## Related Components
+
+- **[Card](/?path=/docs/components-card--docs)** - Base card component used for the form container
+- **[Input](/?path=/docs/components-input--docs)** - Input component used for all form fields
+- **[Button](/?path=/docs/components-button--docs)** - Button component used for submit action
+- **[LoginForm](/?path=/docs/components-loginform--docs)** - Login form with similar pattern
+- **[ContactForm](/?path=/docs/components-contactform--docs)** - Another form example using the same components
