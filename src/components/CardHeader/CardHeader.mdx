@@ -1,0 +1,114 @@
+import { Canvas, Meta, Controls } from '@storybook/blocks'
+import * as CardHeaderStories from './CardHeader.stories'
+
+<Meta of={CardHeaderStories} />
+
+# CardHeader
+
+The CardHeader component provides a flexible header section for cards with support for icons, headings, descriptions, badges, and action menus.
+
+## Usage
+
+```tsx
+import { CardHeader } from '@/components/CardHeader'
+
+function Example() {
+  return (
+    <CardHeader
+      heading="Card Title"
+      description="Card subtitle or description"
+    />
+  )
+}
+```
+
+## Features
+
+- **Icon support**: Display an icon alongside the heading
+- **Heading and description**: Primary and secondary text
+- **Badge**: Show status or category badges
+- **Action menu**: Add dropdown menus or action buttons
+- **Flexible visibility**: Control which elements are shown
+- **Customizable styling**: Accept custom className
+
+## Props
+
+<Controls of={CardHeaderStories.Default} />
+
+## Examples
+
+### Basic Header
+
+<Canvas of={CardHeaderStories.Default} />
+
+### With Icon
+
+```tsx
+<CardHeader
+  icon={<Icon name="user" />}
+  heading="User Profile"
+  description="View and edit your profile"
+/>
+```
+
+### With Badge
+
+```tsx
+<CardHeader
+  heading="New Feature"
+  description="Check out what's new"
+  badge={<Badge variant="info">New</Badge>}
+/>
+```
+
+### With Menu
+
+```tsx
+<CardHeader
+  heading="Settings"
+  description="Manage your preferences"
+  menu={<DropdownMenu />}
+/>
+```
+
+### Complete Header
+
+```tsx
+<CardHeader
+  icon={<Icon name="settings" />}
+  heading="Account Settings"
+  description="Manage your account preferences"
+  badge={<Badge variant="success">Active</Badge>}
+  menu={<DropdownMenu />}
+/>
+```
+
+## Visibility Control
+
+You can control which elements are displayed using the show props:
+
+```tsx
+<CardHeader
+  icon={<Icon name="user" />}
+  heading="Title"
+  description="Description"
+  showIcon={true}
+  showTitle={true}
+  showDescription={false}
+/>
+```
+
+## Accessibility
+
+- Use semantic heading levels appropriate for your page structure
+- Ensure icons have appropriate aria-labels
+- Menu buttons should be keyboard accessible
+- Maintain sufficient color contrast for text
+
+## Best Practices
+
+1. **Clear hierarchy**: Use heading for primary text, description for secondary
+2. **Icon relevance**: Choose icons that clearly represent the content
+3. **Badge usage**: Use badges sparingly for important status information
+4. **Menu placement**: Place action menus in the top-right for consistency
+5. **Responsive design**: Ensure headers work well on mobile devices

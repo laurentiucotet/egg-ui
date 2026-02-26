@@ -1,0 +1,157 @@
+import { Canvas, Meta, Controls } from '@storybook/blocks'
+import * as CardFooterStories from './CardFooter.stories'
+
+<Meta of={CardFooterStories} />
+
+# CardFooter
+
+The CardFooter component provides a flexible footer section for cards with left and right content areas, perfect for actions, metadata, or additional information.
+
+## Usage
+
+```tsx
+import { CardFooter } from '@/components/CardFooter'
+
+function Example() {
+  return (
+    <CardFooter
+      left="Last updated: 2 hours ago"
+      right={<Button>View Details</Button>}
+    />
+  )
+}
+```
+
+## Features
+
+- **Two content areas**: Separate left and right sections
+- **Flexible content**: Accept text, React nodes, or components
+- **Visibility control**: Show/hide left or right sections independently
+- **Customizable styling**: Accept custom className
+- **Responsive layout**: Adapts to different screen sizes
+
+## Props
+
+<Controls of={CardFooterStories.Default} />
+
+## Examples
+
+### Basic Footer
+
+<Canvas of={CardFooterStories.Default} />
+
+### With Actions
+
+```tsx
+<CardFooter
+  left="3 comments"
+  right={
+    <div className="flex gap-2">
+      <Button size="sm">Edit</Button>
+      <Button size="sm" intent="danger">Delete</Button>
+    </div>
+  }
+/>
+```
+
+### With Metadata
+
+```tsx
+<CardFooter
+  left={
+    <div className="flex items-center gap-2">
+      <Icon name="calendar" />
+      <span>Posted on Jan 15, 2024</span>
+    </div>
+  }
+  right={
+    <Badge variant="success">Published</Badge>
+  }
+/>
+```
+
+### Single Side
+
+```tsx
+// Only left content
+<CardFooter left="Footer information" />
+
+// Only right content
+<CardFooter right={<Button>Action</Button>} />
+```
+
+## Common Patterns
+
+### Action Buttons
+
+```tsx
+<CardFooter
+  left="Last modified: Today"
+  right={
+    <>
+      <Button intent="secondary" size="sm">Cancel</Button>
+      <Button intent="primary" size="sm">Save</Button>
+    </>
+  }
+/>
+```
+
+### Statistics
+
+```tsx
+<CardFooter
+  left={
+    <div className="flex gap-4">
+      <span>👍 24 likes</span>
+      <span>💬 8 comments</span>
+    </div>
+  }
+  right={<Button intent="ghost" size="sm">Share</Button>}
+/>
+```
+
+### Timestamps
+
+```tsx
+<CardFooter
+  left={
+    <span className="text-sm text-gray-500">
+      Created: {new Date().toLocaleDateString()}
+    </span>
+  }
+  right={
+    <span className="text-sm text-gray-500">
+      By: John Doe
+    </span>
+  }
+/>
+```
+
+## Visibility Control
+
+Control which sections are displayed:
+
+```tsx
+<CardFooter
+  left="Left content"
+  right="Right content"
+  showLeft={true}
+  showRight={false}
+/>
+```
+
+## Accessibility
+
+- Use semantic HTML within footer content
+- Ensure buttons and links are keyboard accessible
+- Maintain sufficient color contrast for text
+- Provide meaningful labels for icon-only buttons
+
+## Best Practices
+
+1. **Content alignment**: Left for metadata, right for actions
+2. **Consistent spacing**: Use consistent gaps between elements
+3. **Button sizing**: Use smaller button sizes (sm) in footers
+4. **Responsive design**: Stack content on mobile if needed
+5. **Visual hierarchy**: Use color and size to indicate importance
+6. **Clear actions**: Make action buttons clear and descriptive

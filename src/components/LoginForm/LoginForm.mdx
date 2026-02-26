@@ -1,0 +1,108 @@
+import { Meta, Primary, Controls, Canvas, Source } from '@storybook/blocks'
+import { LoginForm } from './LoginForm'
+import * as LoginFormStories from './LoginForm.stories'
+
+<Meta of={LoginFormStories} />
+
+# LoginForm
+
+A login form component with email and password fields, wrapped in a card component. The form includes built-in validation that prevents submission when required fields are empty.
+
+## Usage
+
+<Source language="tsx" code={`import { LoginForm } from './LoginForm'
+
+// Basic usage
+<LoginForm onSubmit={(data) => console.log(data)} />
+
+// With custom styling
+<LoginForm 
+  onSubmit={(data) => console.log(data)} 
+  className="w-full max-w-md mx-auto"
+/>`} />
+
+## Props
+
+<Controls />
+
+## LoginFormData
+
+The data shape returned when the form is successfully submitted.
+
+| Property | Type | Description |
+|----------|------|-------------|
+| email | `string` | The user's email address |
+| password | `string` | The user's password |
+
+## Features
+
+### Form Validation
+- Both email and password fields are required
+- Form submission is prevented if either field is empty
+- Visual validation through HTML5 required attribute
+
+### Built-in Components
+The LoginForm composes several existing components:
+- **[Card](/?path=/docs/components-card--docs)** - Main container with card styling
+- **[CardHeader](/?path=/docs/components-card--docs)** - Header with "Login" title and description
+- **[CardContent](/?path=/docs/components-card--docs)** - Form content wrapper
+- **[Input](/?path=/docs/components-input--docs)** - Email and password input fields
+- **[Button](/?path=/docs/components-button--docs)** - Submit button
+
+## Examples
+
+### Default
+
+<Canvas of={LoginFormStories.Default} />
+
+The default login form with email and password fields. Both fields are required.
+
+### Custom Class
+
+<Canvas of={LoginFormStories.WithCustomClass} />
+
+Login form with custom CSS class for wider layout.
+
+### Centered
+
+<Canvas of={LoginFormStories.Centered} />
+
+Centered login form with maximum width constraint - common pattern for login pages.
+
+### Full Width
+
+<Canvas of={LoginFormStories.FullWidth} />
+
+Login form configured to take full width of its container.
+
+### Interactive: Form Submission
+
+<Canvas of={LoginFormStories.FormSubmission} />
+
+Interactive story demonstrating form submission with valid data. Tests typing in both fields and submitting the form.
+
+### Interactive: Validation - Empty Email
+
+<Canvas of={LoginFormStories.ValidationEmptyEmail} />
+
+Interactive story demonstrating validation prevents submission when email field is empty.
+
+### Interactive: Validation - Empty Password
+
+<Canvas of={LoginFormStories.ValidationEmptyPassword} />
+
+Interactive story demonstrating validation prevents submission when password field is empty.
+
+### Interactive: Focus Management
+
+<Canvas of={LoginFormStories.FocusManagement} />
+
+Focus is managed to direct users to the first input field.
+
+## Related Components
+
+- **[Card](/?path=/docs/components-card--docs)** - Base card component used for the form container
+- **[Input](/?path=/docs/components-input--docs)** - Input component used for email and password fields
+- **[Button](/?path=/docs/components-button--docs)** - Button component used for submit action
+- **[RegisterScreen](/?path=/docs-components-registerscreen--docs)** - Registration form with similar pattern
+- **[ContactForm](/?path:/docs-components-contactform--docs)** - Another form example using the same components

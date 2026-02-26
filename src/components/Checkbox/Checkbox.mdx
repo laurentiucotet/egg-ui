@@ -1,0 +1,95 @@
+import { Meta, Primary, Controls, Canvas } from '@storybook/blocks'
+import * as CheckboxStories from './Checkbox.stories'
+
+<Meta of={CheckboxStories} />
+
+# Checkbox
+
+A checkbox component that allows users to select one or more options. Supports checked, unchecked, and indeterminate states. Uses design tokens from `design-tokens.css` for consistent styling.
+
+## Usage
+
+```tsx
+import { Checkbox } from './components'
+
+function MyComponent() {
+  return (
+    <Checkbox 
+      label="Accept terms" 
+      onChange={(checked) => console.log(checked)}
+    />
+  )
+}
+```
+
+## Props
+
+<Controls />
+
+## States
+
+### Unchecked
+
+Default state where no option is selected.
+
+<Canvas of={CheckboxStories.Unchecked} />
+
+### Checked
+
+When the option is selected.
+
+<Canvas of={CheckboxStories.Checked} />
+
+### Indeterminate
+
+Used for "select all" scenarios where some but not all items are selected.
+
+<Canvas of={CheckboxStories.Indeterminate} />
+
+## Sizes
+
+### Small
+
+Small checkbox for compact interfaces.
+
+<Canvas of={CheckboxStories.Small} />
+
+### Large
+
+Large checkbox for prominent selections.
+
+<Canvas of={CheckboxStories.Large} />
+
+## Disabled States
+
+### Disabled Unchecked
+
+Disabled checkbox that cannot be interacted with.
+
+<Canvas of={CheckboxStories.Disabled} />
+
+### Disabled Checked
+
+Disabled but checked state shows selected but non-interactive.
+
+<Canvas of={CheckboxStories.DisabledChecked} />
+
+## Without Label
+
+Checkbox without a label for use in custom layouts or tight spaces.
+
+<Canvas of={CheckboxStories.WithoutLabel} />
+
+## Design Tokens
+
+The Checkbox component uses the following design tokens:
+
+- `--color-primary` - Checkbox background when checked
+- `--color-primary-hover` - Checkbox hover state when checked
+- `--color-border` - Default border color
+- `--color-bg-primary` - Background color
+- `--color-text-primary` - Label text color
+- `--radius-sm` - Border radius
+- `--transition-fast` - Transition duration
+- `--font-sans` - Font family
+- `--line-height-normal` - Label line height

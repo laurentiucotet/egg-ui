@@ -1,0 +1,135 @@
+import { Canvas, Meta, Controls } from '@storybook/blocks'
+import * as IconStories from './Icon.stories'
+
+<Meta of={IconStories} />
+
+# Icon
+
+The Icon component provides a consistent way to display SVG icons throughout the application using the lucide-react icon library.
+
+## Usage
+
+```tsx
+import { Icon } from '@/components/Icon'
+
+function Example() {
+  return <Icon name="bell" size="md" />
+}
+```
+
+## Features
+
+- **Multiple icons**: Support for bell, settings, and chevron icons
+- **Size variants**: Small, medium, and large sizes
+- **Color customization**: Customizable icon color
+- **Accessibility**: Supports aria-label and other accessibility props
+- **Flexible styling**: Accept custom className
+
+## Available Icons
+
+Currently supported icons:
+- **bell**: Notification bell icon
+- **settings**: Settings/configuration icon
+- **chevron**: Chevron/arrow icon
+
+## Props
+
+<Controls of={IconStories.Default} />
+
+## Examples
+
+### Default Icon
+
+<Canvas of={IconStories.Default} />
+
+### Different Sizes
+
+```tsx
+<Icon name="bell" size="sm" />
+<Icon name="bell" size="md" />
+<Icon name="bell" size="lg" />
+```
+
+### Different Icons
+
+```tsx
+<Icon name="bell" />
+<Icon name="settings" />
+<Icon name="chevron" />
+```
+
+### With Custom Color
+
+```tsx
+<Icon name="bell" color="default" />
+```
+
+### With Custom Styling
+
+```tsx
+<Icon name="bell" className="text-blue-500 hover:text-blue-700" />
+```
+
+## Accessibility
+
+Always provide meaningful context for icons:
+
+```tsx
+// With aria-label
+<Icon name="bell" aria-label="Notifications" />
+
+// In a button with text
+<button>
+  <Icon name="settings" />
+  <span>Settings</span>
+</button>
+
+// Icon-only button
+<button aria-label="Open settings">
+  <Icon name="settings" />
+</button>
+```
+
+## Best Practices
+
+1. **Meaningful labels**: Always provide aria-label for standalone icons
+2. **Consistent sizing**: Use consistent icon sizes within the same context
+3. **Color contrast**: Ensure icons have sufficient contrast with backgrounds
+4. **Interactive icons**: Make clickable icons part of a button or link
+5. **Loading states**: Consider showing loading indicators for async actions
+6. **Responsive design**: Icons should scale appropriately on different devices
+
+## Common Patterns
+
+### Icon Button
+
+```tsx
+<button className="p-2 rounded hover:bg-gray-100" aria-label="Notifications">
+  <Icon name="bell" size="md" />
+</button>
+```
+
+### Icon with Text
+
+```tsx
+<div className="flex items-center gap-2">
+  <Icon name="settings" size="sm" />
+  <span>Settings</span>
+</div>
+```
+
+### Navigation Item
+
+```tsx
+<a href="/settings" className="flex items-center gap-2">
+  <Icon name="settings" size="md" />
+  <span>Account Settings</span>
+</a>
+```
+
+## Notes
+
+- Icons are rendered as SVG elements
+- The component uses lucide-react internally
+- Custom icons can be added by extending the IconName type
+- Icons inherit color from their parent by default

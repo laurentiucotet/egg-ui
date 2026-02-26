@@ -1,0 +1,72 @@
+import { Canvas, Meta, Controls } from '@storybook/blocks'
+import * as BadgeStories from './Badge.stories'
+
+<Meta of={BadgeStories} />
+
+# Badge
+
+A Badge component is used to display small pieces of information, status indicators, or labels. It's commonly used to highlight new features, show counts, or indicate status.
+
+## Usage
+
+```tsx
+import { Badge } from '@/components/Badge'
+
+function Example() {
+  return <Badge variant="info">New</Badge>
+}
+```
+
+## Variants
+
+The Badge component supports multiple variants to convey different meanings:
+
+- **neutral**: Default, neutral appearance
+- **info**: Informational badge (blue)
+- **success**: Success or positive status (green)
+- **warning**: Warning or caution (yellow/orange)
+- **danger**: Error or critical status (red)
+
+<Canvas of={BadgeStories.Variants} />
+
+## Sizes
+
+The Badge component comes in three sizes:
+
+- **sm**: Small size (default)
+- **md**: Medium size
+- **lg**: Large size
+
+## Props
+
+<Controls of={BadgeStories.Default} />
+
+## Examples
+
+### Default Badge
+
+<Canvas of={BadgeStories.Default} />
+
+### With Custom Content
+
+Badges can contain any text or even numbers:
+
+```tsx
+<Badge variant="danger">5</Badge>
+<Badge variant="success">Active</Badge>
+<Badge variant="warning">Pending</Badge>
+```
+
+### Accessibility
+
+- Badges should have meaningful text content
+- Use appropriate color variants to convey meaning
+- Consider adding `aria-label` for icon-only badges
+- Ensure sufficient color contrast for readability
+
+## Best Practices
+
+1. **Keep text short**: Badges work best with concise text (1-2 words or numbers)
+2. **Use appropriate variants**: Choose variants that match the semantic meaning
+3. **Consistent sizing**: Use consistent badge sizes within the same context
+4. **Placement**: Position badges near related content for clarity

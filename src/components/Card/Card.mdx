@@ -1,0 +1,173 @@
+import { Canvas, Meta, Controls } from '@storybook/blocks'
+import * as CardStories from './Card.stories'
+
+<Meta of={CardStories} />
+
+# Card
+
+A Card component is a versatile container for displaying content in a structured, visually appealing way. Cards can include images, headers, content, and footers, making them ideal for displaying articles, products, user profiles, and more.
+
+## Usage
+
+```tsx
+import { Card, CardHeader, CardContent, CardFooter } from '@/components/Card'
+
+function Example() {
+  return (
+    <Card>
+      <CardContent>
+        <h3>Card Title</h3>
+        <p>Card content goes here</p>
+      </CardContent>
+    </Card>
+  )
+}
+```
+
+## Features
+
+- **Flexible composition**: Use Card sub-components for structured layouts
+- **Image support**: Optional image display with customizable styling
+- **Shadow variants**: Multiple shadow depths for visual hierarchy
+- **Hover effects**: Interactive animations (lift, grow, pulse)
+- **Rounded corners**: Customizable border radius
+- **Header and Footer**: Built-in support for card headers and footers
+
+## Card Variants
+
+### Shadow
+
+Control the depth of the card's shadow:
+
+- **none**: No shadow
+- **sm**: Small shadow (default)
+- **md**: Medium shadow
+- **lg**: Large shadow
+- **xl**: Extra large shadow
+
+### Hover Effects
+
+Add interactive animations on hover:
+
+- **none**: No hover effect (default)
+- **lift**: Card lifts up slightly
+- **grow**: Card scales up
+- **pulse**: Enhanced shadow on hover
+
+### Rounded
+
+Control the border radius:
+
+- **base**: Standard rounded corners (default)
+- **md**: Medium rounded corners
+- **full**: Fully rounded corners
+
+## Card Sub-components
+
+### CardContent
+
+The main content area of the card with padding.
+
+```tsx
+<Card>
+  <CardContent>
+    Your content here
+  </CardContent>
+</Card>
+```
+
+### CardTitle
+
+A styled heading for the card (renders as h3).
+
+```tsx
+<CardTitle>Card Title</CardTitle>
+```
+
+### CardDescription
+
+A styled description text for the card.
+
+```tsx
+<CardDescription>Card description text</CardDescription>
+```
+
+### CardHeader
+
+A header section with support for icons, badges, and menus.
+
+```tsx
+<Card header={{ heading: 'Title', description: 'Description' }}>
+  <CardContent>Content</CardContent>
+</Card>
+```
+
+### CardFooter
+
+A footer section with left and right content areas.
+
+```tsx
+<Card footer={{ left: 'Left content', right: 'Right content' }}>
+  <CardContent>Content</CardContent>
+</Card>
+```
+
+## Props
+
+<Controls of={CardStories.Default} />
+
+## Examples
+
+### Basic Card
+
+<Canvas of={CardStories.Default} />
+
+### Card with Image
+
+```tsx
+<Card imageSrc="/image.jpg" imageAlt="Description">
+  <CardContent>
+    <CardTitle>Title</CardTitle>
+    <CardDescription>Description</CardDescription>
+  </CardContent>
+</Card>
+```
+
+### Card with Header and Footer
+
+```tsx
+<Card
+  header={{ heading: 'Card Title', description: 'Subtitle' }}
+  footer={{ left: 'Footer left', right: 'Footer right' }}
+>
+  <CardContent>Main content</CardContent>
+</Card>
+```
+
+### Interactive Card
+
+```tsx
+<Card shadow="md" hoverEffect="lift">
+  <CardContent>
+    <CardTitle>Hover me!</CardTitle>
+    <CardDescription>This card lifts on hover</CardDescription>
+  </CardContent>
+</Card>
+```
+
+## Accessibility
+
+- Cards use `role="article"` for semantic meaning
+- Ensure images have descriptive `alt` text
+- Use proper heading hierarchy within cards
+- Maintain sufficient color contrast for text
+- Interactive cards should be keyboard accessible
+
+## Best Practices
+
+1. **Content hierarchy**: Use CardTitle and CardDescription for clear structure
+2. **Image optimization**: Optimize images for web to improve load times
+3. **Consistent styling**: Use the same shadow and rounded variants within a section
+4. **Hover effects**: Use hover effects sparingly for interactive cards
+5. **Responsive design**: Cards should adapt to different screen sizes
+6. **Meaningful content**: Ensure card content is self-contained and meaningful
